@@ -1,19 +1,11 @@
-# constant README
-### setting.json
-{ 
-  "constantJSON": {
-    "+": "_"
-  } 
-}
-
 # 命名方法
 
-- 大驼峰：UperCamelCase
-- 小驼峰：lowerCamelCase
+- 大驼峰：UperCamelCase ✅
+- 小驼峰：lowerCamelCase ✅
 - 大蛇形：SNAKE_CASE ✅
 - 小蛇形：snake_case ✅
-- 小脊柱：kebab-case
-- 大脊柱：KEBAB-CASE
+- 小脊柱：kebab-case ✅
+- 大脊柱：KEBAB-CASE ✅
 - 全小写： case ✅
 - 全大写： CASE ✅
 

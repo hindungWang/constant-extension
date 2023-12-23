@@ -10,17 +10,16 @@ function activate(context) {
 			// 获取选中的文本
 			const selection = editor.selection;
 			let selectedText = editor.document.getText(selection);
-			// 获取配置信息
-			const config = vscode.workspace.getConfiguration('constantJSON') || {};
-			for (const key in config) {
-				const regex = new RegExp(utils.escapeRegExp(key), 'g');
-				// @ts-ignore
-				selectedText = selectedText.replace(regex, config[key])
-			}
 			// 在这里可以进行其他操作，使用选中的文本进行处理
-			editor.edit(editBuilder => {
-				editBuilder.replace(selection, utils.convertToLowerCase(selectedText));
-			});
+			utils.convertToLowerSnakeCase(selectedText)
+				.then(result => {
+					editor.edit(editBuilder => {
+						editBuilder.replace(selection, result);
+					});
+				})
+				.catch(error => {
+					vscode.window.showErrorMessage(error);; // 处理错误信息
+				});
 		} else {
 			vscode.window.showErrorMessage('No active text editor.');
 		}
@@ -33,17 +32,100 @@ function activate(context) {
 			// 获取选中的文本
 			const selection = editor.selection;
 			let selectedText = editor.document.getText(selection);
-			// 获取配置信息
-			const config = vscode.workspace.getConfiguration('constantJSON') || {};
-			for (const key in config) {
-				const regex = new RegExp(utils.escapeRegExp(key), 'g');
-				// @ts-ignore
-				selectedText = selectedText.replace(regex, config[key])
-			}
 			// 在这里可以进行其他操作，使用选中的文本进行处理
-			editor.edit(editBuilder => {
-				editBuilder.replace(selection, utils.convertToUpperCase(selectedText));
-			});
+			utils.convertToUpperSnakeCase(selectedText)
+				.then(result => {
+					editor.edit(editBuilder => {
+						editBuilder.replace(selection, result);
+					});
+				})
+				.catch(error => {
+					vscode.window.showErrorMessage(error);; // 处理错误信息
+				});
+		} else {
+			vscode.window.showErrorMessage('No active text editor.');
+		}
+	});
+
+	let lowerCamelCase = vscode.commands.registerCommand('lowerCamelCase', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			// 获取选中的文本
+			const selection = editor.selection;
+			let selectedText = editor.document.getText(selection);
+			// 在这里可以进行其他操作，使用选中的文本进行处理
+			utils.convertToLowerCamelCase(selectedText)
+				.then(result => {
+					editor.edit(editBuilder => {
+						editBuilder.replace(selection, result);
+					});
+				})
+				.catch(error => {
+					vscode.window.showErrorMessage(error);; // 处理错误信息
+				});
+		} else {
+			vscode.window.showErrorMessage('No active text editor.');
+		}
+	});
+
+	let upperCamelCase = vscode.commands.registerCommand('upperCamelCase', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			// 获取选中的文本
+			const selection = editor.selection;
+			let selectedText = editor.document.getText(selection);
+			// 在这里可以进行其他操作，使用选中的文本进行处理
+			utils.convertToUpperCamelCase(selectedText)
+				.then(result => {
+					editor.edit(editBuilder => {
+						editBuilder.replace(selection, result);
+					});
+				})
+				.catch(error => {
+					vscode.window.showErrorMessage(error);; // 处理错误信息
+				});
+		} else {
+			vscode.window.showErrorMessage('No active text editor.');
+		}
+	});
+
+	let lowerKebabCase = vscode.commands.registerCommand('lowerKebabCase', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			// 获取选中的文本
+			const selection = editor.selection;
+			let selectedText = editor.document.getText(selection);
+			// 在这里可以进行其他操作，使用选中的文本进行处理
+			utils.convertToLowerKebabCase(selectedText)
+				.then(result => {
+					editor.edit(editBuilder => {
+						editBuilder.replace(selection, result);
+					});
+				})
+				.catch(error => {
+					vscode.window.showErrorMessage(error);; // 处理错误信息
+				});
+		} else {
+			vscode.window.showErrorMessage('No active text editor.');
+		}
+	});
+
+	let upperKebabCase = vscode.commands.registerCommand('upperKebabCase', () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			// 获取选中的文本
+			const selection = editor.selection;
+			let selectedText = editor.document.getText(selection);
+			// 在这里可以进行其他操作，使用选中的文本进行处理
+			utils.convertToUpperKebabCase(selectedText)
+				.then(result => {
+					editor.edit(editBuilder => {
+						editBuilder.replace(selection, result);
+					});
+				})
+				.catch(error => {
+					vscode.window.showErrorMessage(error);; // 处理错误信息
+				});
 		} else {
 			vscode.window.showErrorMessage('No active text editor.');
 		}
@@ -75,7 +157,7 @@ function activate(context) {
 			vscode.window.showErrorMessage('No active text editor.');
 		}
 	});
-	context.subscriptions.push(upperSnakeCase);
+	context.subscriptions.push(lowerSnakeCase, upperSnakeCase);
 	context.subscriptions.push(lowerCase, upperCase);
 }
 function deactivate() { }

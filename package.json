@@ -15,35 +15,35 @@
     "commands": [
       {
         "command": "upperCamelCase",
-        "title": "UpperCamelCase"
+        "title": "=> UpperCamelCase"
       },
       {
         "command": "lowerCamelCase",
-        "title": "lowerCamelCase"
+        "title": "=> lowerCamelCase"
       },
       {
         "command": "lowerCase",
-        "title": "lowercase"
+        "title": "=> lowercase"
       },
       {
         "command": "upperCase",
-        "title": "UPPERCASE"
+        "title": "=> UPPERCASE"
       },
       {
         "command": "lowerSnakeCase",
-        "title": "lower_snake_case"
+        "title": "=> lower_snake_case"
       },
       {
         "command": "upperSnakeCase",
-        "title": "UPPER_SNAKE_CASE"
+        "title": "=> UPPER_SNAKE_CASE"
       },
       {
         "command": "lowerKebabCase",
-        "title": "lower-kebab-case"
+        "title": "=> lower-kebab-case"
       },
       {
         "command": "upperKebabCase",
-        "title": "UPPER-KEBAB-CASE"
+        "title": "=> UPPER-KEBAB-CASE"
       }
     ],
     "menus": {
@@ -55,12 +55,12 @@
       ],
       "root": [
         {
-            "command": "upperCamelCase",
-            "group": "rename"
+          "command": "upperCamelCase",
+          "group": "rename"
         },
         {
-            "command": "lowerCamelCase",
-            "group": "rename"
+          "command": "lowerCamelCase",
+          "group": "rename"
         },
         {
           "command": "lowerCase",
@@ -90,8 +90,8 @@
     },
     "submenus": [
       {
-          "id": "root",
-          "label": "Rename"
+        "id": "root",
+        "label": "Rename"
       }
     ],
     "keybindings": [
@@ -108,12 +108,15 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3",
+    "@types/vscode": "^1.85.0",
     "@vscode/test-cli": "^0.0.4",
-    "@vscode/test-electron": "^2.3.8"
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "wordsninja": "^1.0.0"
   }
 }
