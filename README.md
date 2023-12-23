@@ -6,6 +6,21 @@
   } 
 }
 
+# 命名方法
+
+- 大驼峰：UperCamelCase
+- 小驼峰：lowerCamelCase
+- 大蛇形：SNAKE_CASE ✅
+- 小蛇形：snake_case ✅
+- 小脊柱：kebab-case
+- 大脊柱：KEBAB-CASE
+- 全小写： case ✅
+- 全大写： CASE ✅
+
+# TODO
+
+自动识别单词进行处理
+
 ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
