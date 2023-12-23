@@ -25,7 +25,6 @@ function activate(context) {
 		}
 	});
 
-
 	let upperSnakeCase = vscode.commands.registerCommand('upperSnakeCase', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {

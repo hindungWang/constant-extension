@@ -1,10 +1,15 @@
 const WordsNinjaPack = require('wordsninja');
 const WordsNinja = new WordsNinjaPack();
 
+function injectWords(){
+  WordsNinja.addWords("kube");
+}
+
 function convertToLowerSnakeCase(str) {
   return new Promise(async (resolve, reject) => {
     try {
       await WordsNinja.loadDictionary();
+      injectWords();
       const words = WordsNinja.splitSentence(str);
 
       let res = "";
@@ -30,6 +35,7 @@ function convertToUpperSnakeCase(str) {
   return new Promise(async (resolve, reject) => {
     try {
       await WordsNinja.loadDictionary();
+      injectWords();
       const words = WordsNinja.splitSentence(str);
 
       let res = "";
@@ -55,6 +61,7 @@ function convertToLowerKebabCase(str) {
   return new Promise(async (resolve, reject) => {
     try {
       await WordsNinja.loadDictionary();
+      injectWords();
       const words = WordsNinja.splitSentence(str);
 
       let res = "";
@@ -80,6 +87,7 @@ function convertToUpperKebabCase(str) {
   return new Promise(async (resolve, reject) => {
     try {
       await WordsNinja.loadDictionary();
+      injectWords();
       const words = WordsNinja.splitSentence(str);
 
       let res = "";
@@ -105,6 +113,7 @@ function convertToLowerCamelCase(str) {
   return new Promise(async (resolve, reject) => {
     try {
       await WordsNinja.loadDictionary();
+      injectWords();
       const words = WordsNinja.splitSentence(str);
 
       let res = "";
@@ -134,6 +143,7 @@ function convertToUpperCamelCase(str) {
   return new Promise(async (resolve, reject) => {
     try {
       await WordsNinja.loadDictionary();
+      injectWords();
       const words = WordsNinja.splitSentence(str);
 
       let res = "";
