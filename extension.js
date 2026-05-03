@@ -58,6 +58,15 @@ const copyEvents = {
   copyPathUpperCamelCase: utils.copyPathUpperCamelCase,
   copyPathLowerSnakeCase: utils.copyPathLowerSnakeCase,
   copyPathUpperSnakeCase: utils.copyPathUpperSnakeCase,
+  copyPathJsonPathWithValue: utils.copyPathJsonPathWithValue,
+  copyPathLowerCaseWithValue: utils.copyPathLowerCaseWithValue,
+  copyPathUpperCaseWithValue: utils.copyPathUpperCaseWithValue,
+  copyPathLowerKebabCaseWithValue: utils.copyPathLowerKebabCaseWithValue,
+  copyPathUpperKebabCaseWithValue: utils.copyPathUpperKebabCaseWithValue,
+  copyPathLowerCamelCaseWithValue: utils.copyPathLowerCamelCaseWithValue,
+  copyPathUpperCamelCaseWithValue: utils.copyPathUpperCamelCaseWithValue,
+  copyPathLowerSnakeCaseWithValue: utils.copyPathLowerSnakeCaseWithValue,
+  copyPathUpperSnakeCaseWithValue: utils.copyPathUpperSnakeCaseWithValue,
 };
 /**
  * @param {vscode.ExtensionContext} context

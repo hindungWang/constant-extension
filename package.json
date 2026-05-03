@@ -28,7 +28,16 @@
     "onCommand:copyPathLowerCamelCase",
     "onCommand:copyPathUpperCamelCase",
     "onCommand:copyPathLowerSnakeCase",
-    "onCommand:copyPathUpperSnakeCase"
+    "onCommand:copyPathUpperSnakeCase",
+    "onCommand:copyPathJsonPathWithValue",
+    "onCommand:copyPathLowerCaseWithValue",
+    "onCommand:copyPathUpperCaseWithValue",
+    "onCommand:copyPathLowerKebabCaseWithValue",
+    "onCommand:copyPathUpperKebabCaseWithValue",
+    "onCommand:copyPathLowerCamelCaseWithValue",
+    "onCommand:copyPathUpperCamelCaseWithValue",
+    "onCommand:copyPathLowerSnakeCaseWithValue",
+    "onCommand:copyPathUpperSnakeCaseWithValue"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -100,6 +109,42 @@
       {
         "command": "copyPathUpperSnakeCase",
         "title": "=> UPPER_SNAKE_CASE"
+      },
+      {
+        "command": "copyPathJsonPathWithValue",
+        "title": "=> jsonPath"
+      },
+      {
+        "command": "copyPathLowerCaseWithValue",
+        "title": "=> case"
+      },
+      {
+        "command": "copyPathUpperCaseWithValue",
+        "title": "=> CASE"
+      },
+      {
+        "command": "copyPathLowerKebabCaseWithValue",
+        "title": "=> kebab-case"
+      },
+      {
+        "command": "copyPathUpperKebabCaseWithValue",
+        "title": "=> KEBAB-CASE"
+      },
+      {
+        "command": "copyPathLowerCamelCaseWithValue",
+        "title": "=> lowerCamelCase"
+      },
+      {
+        "command": "copyPathUpperCamelCaseWithValue",
+        "title": "=> UpperCamelCase"
+      },
+      {
+        "command": "copyPathLowerSnakeCaseWithValue",
+        "title": "=> lower_snake_case"
+      },
+      {
+        "command": "copyPathUpperSnakeCaseWithValue",
+        "title": "=> UPPER_SNAKE_CASE"
       }
     ],
     "menus": {
@@ -150,6 +195,10 @@
         {
           "group": "copyPath@9",
           "command": "copyPathUpperSnakeCase"
+        },
+        {
+          "group": "copyPath@10",
+          "submenu": "copyPathWithValueMenu"
         }
       ],
       "root": [
@@ -185,6 +234,44 @@
           "command": "upperKebabCase",
           "group": "rename"
         }
+      ],
+      "copyPathWithValueMenu": [
+        {
+          "group": "copyPathWithValue@1",
+          "command": "copyPathJsonPathWithValue"
+        },
+        {
+          "group": "copyPathWithValue@2",
+          "command": "copyPathLowerCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@3",
+          "command": "copyPathUpperCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@4",
+          "command": "copyPathLowerKebabCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@5",
+          "command": "copyPathUpperKebabCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@6",
+          "command": "copyPathLowerCamelCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@7",
+          "command": "copyPathUpperCamelCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@8",
+          "command": "copyPathLowerSnakeCaseWithValue"
+        },
+        {
+          "group": "copyPathWithValue@9",
+          "command": "copyPathUpperSnakeCaseWithValue"
+        }
       ]
     },
     "submenus": [
@@ -195,6 +282,10 @@
       {
         "id": "copyPathMenu",
         "label": "CopyPath"
+      },
+      {
+        "id": "copyPathWithValueMenu",
+        "label": "WithValue"
       }
     ],
     "keybindings": [
