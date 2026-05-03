@@ -226,10 +226,14 @@ function dfs(obj, path, searchStr) {
     }
   }
 }
-function copyYamlPath() {
+
+function getPathFromActiveLine() {
   const textEditor = vscode.window.activeTextEditor;
   if (textEditor !== undefined) {
     const selectedLine = textEditor.selection.active.line;
+    if (textEditor.document.languageId === "json") {
+      return getJsonPathFromActiveLine(textEditor, selectedLine);
+    }
     const selection = new vscode.Selection(
       0,
       0,
@@ -243,49 +247,93 @@ function copyYamlPath() {
     propertyData[1] = `${SEARCH_STR}`;
     yamlLines[yamlLines.length - 1] = propertyData.join(": ");
     const yamlData = yaml.load(yamlLines.join("\n"));
-    const objPath = dfs(yamlData, [], `${SEARCH_STR}`);
-    const path = objPath.join(".");
-    vscode.window.showInformationMessage(`复制成功: ${path}`);
-    vscode.env.clipboard.writeText(path);
+    return dfs(yamlData, [], `${SEARCH_STR}`);
   }
 }
 
-function copyYamlJson() {
-  const textEditor = vscode.window.activeTextEditor;
-  if (textEditor !== undefined) {
-    const selectedLine = textEditor.selection.active.line;
-    const selection = new vscode.Selection(
-      0,
-      0,
-      selectedLine,
-      textEditor.document.lineAt(selectedLine).range.end.character
-    );
-    const yamlString = textEditor.document.getText(selection);
-    const yamlLines = yamlString.split(/\r?\n/);
-    const lastLine = yamlLines[yamlLines.length - 1];
-    const propertyData = lastLine.split(":", 1);
-    propertyData[1] = `${SEARCH_STR}`;
-    yamlLines[yamlLines.length - 1] = propertyData.join(": ");
-    const yamlData = yaml.load(yamlLines.join("\n"));
-    const objPath = dfs(yamlData, [], `${SEARCH_STR}`);
-    const result = {};
-    let current = result;
-    objPath.forEach((curr, i) => {
-      const value = objPath[i + 1];
-      const isArray = /^\[\d+\]$/.test(value);
-      const k = isArray ? curr.replace(/^\[/, "").replace(/\]$/, "") : curr;
-      const v = isArray ? [] : {};
-      if (Array.isArray(current)) {
-        current.push(v);
-      } else {
-        current[k] = v;
-      }
-      current = v;
-    });
-    const jsonStr = JSON.stringify(result, null, 2);
-    vscode.window.showInformationMessage(`复制成功: ${jsonStr}`);
-    vscode.env.clipboard.writeText(jsonStr);
+function getJsonPathFromActiveLine(textEditor, selectedLine) {
+  const yamlLines = textEditor.document.getText().split(/\r?\n/);
+  const lastLine = yamlLines[selectedLine];
+  const propertyData = lastLine.match(/^(.*?:\s*)(.*?)(,?\s*)$/);
+  if (propertyData === null) {
+    return;
   }
+
+  yamlLines[selectedLine] =
+    propertyData[1] + JSON.stringify(SEARCH_STR) + propertyData[3];
+  const yamlData = yaml.load(yamlLines.join("\n"));
+  return dfs(yamlData, [], `${SEARCH_STR}`);
+}
+
+function copyText(text) {
+  vscode.window.showInformationMessage(`复制成功: ${text}`);
+  vscode.env.clipboard.writeText(text);
+}
+
+function getPathWords(objPath) {
+  return objPath
+    .map((item) => item.replace(/^\[/, "").replace(/\]$/, ""))
+    .flatMap((item) =>
+      item
+        .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+        .split(/[^A-Za-z0-9]+/)
+        .filter(Boolean)
+    );
+}
+
+function formatCamelCase(words, upperFirst) {
+  return words
+    .map((word, index) => {
+      const lowerWord = word.toLowerCase();
+      if (index === 0 && !upperFirst) {
+        return lowerWord;
+      }
+      return capitalizeFirstLetter(lowerWord);
+    })
+    .join("");
+}
+
+function copyPathWithFormatter(formatter) {
+  const objPath = getPathFromActiveLine();
+  if (objPath !== undefined) {
+    copyText(formatter(objPath));
+  }
+}
+
+function copyPathJsonPath() {
+  copyPathWithFormatter((objPath) => objPath.join("."));
+}
+
+function copyPathLowerCase() {
+  copyPathWithFormatter((objPath) => getPathWords(objPath).join("").toLowerCase());
+}
+
+function copyPathUpperCase() {
+  copyPathWithFormatter((objPath) => getPathWords(objPath).join("").toUpperCase());
+}
+
+function copyPathLowerKebabCase() {
+  copyPathWithFormatter((objPath) => getPathWords(objPath).join("-").toLowerCase());
+}
+
+function copyPathUpperKebabCase() {
+  copyPathWithFormatter((objPath) => getPathWords(objPath).join("-").toUpperCase());
+}
+
+function copyPathLowerCamelCase() {
+  copyPathWithFormatter((objPath) => formatCamelCase(getPathWords(objPath), false));
+}
+
+function copyPathUpperCamelCase() {
+  copyPathWithFormatter((objPath) => formatCamelCase(getPathWords(objPath), true));
+}
+
+function copyPathLowerSnakeCase() {
+  copyPathWithFormatter((objPath) => getPathWords(objPath).join("_").toLowerCase());
+}
+
+function copyPathUpperSnakeCase() {
+  copyPathWithFormatter((objPath) => getPathWords(objPath).join("_").toUpperCase());
 }
 
 module.exports = {
@@ -302,6 +350,13 @@ module.exports = {
       );
     });
   },
-  copyYamlPath,
-  copyYamlJson,
+  copyPathJsonPath,
+  copyPathLowerCase,
+  copyPathUpperCase,
+  copyPathLowerKebabCase,
+  copyPathUpperKebabCase,
+  copyPathLowerCamelCase,
+  copyPathUpperCamelCase,
+  copyPathLowerSnakeCase,
+  copyPathUpperSnakeCase,
 };

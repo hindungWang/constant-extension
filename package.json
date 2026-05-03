@@ -11,7 +11,25 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:upperCamelCase",
+    "onCommand:lowerCamelCase",
+    "onCommand:lowerCase",
+    "onCommand:upperCase",
+    "onCommand:lowerSnakeCase",
+    "onCommand:upperSnakeCase",
+    "onCommand:lowerKebabCase",
+    "onCommand:upperKebabCase",
+    "onCommand:copyPathJsonPath",
+    "onCommand:copyPathLowerCase",
+    "onCommand:copyPathUpperCase",
+    "onCommand:copyPathLowerKebabCase",
+    "onCommand:copyPathUpperKebabCase",
+    "onCommand:copyPathLowerCamelCase",
+    "onCommand:copyPathUpperCamelCase",
+    "onCommand:copyPathLowerSnakeCase",
+    "onCommand:copyPathUpperSnakeCase"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
@@ -48,29 +66,90 @@
         "title": "=> UPPER-KEBAB-CASE"
       },
       {
-        "command": "copyYamlPath",
-        "title": "Copy Yaml Path"
+        "command": "copyPathJsonPath",
+        "title": "=> jsonPath"
       },
       {
-        "command": "copyYamlJson",
-        "title": "Copy Yaml Json"
+        "command": "copyPathLowerCase",
+        "title": "=> case"
+      },
+      {
+        "command": "copyPathUpperCase",
+        "title": "=> CASE"
+      },
+      {
+        "command": "copyPathLowerKebabCase",
+        "title": "=> kebab-case"
+      },
+      {
+        "command": "copyPathUpperKebabCase",
+        "title": "=> KEBAB-CASE"
+      },
+      {
+        "command": "copyPathLowerCamelCase",
+        "title": "=> lowerCamelCase"
+      },
+      {
+        "command": "copyPathUpperCamelCase",
+        "title": "=> UpperCamelCase"
+      },
+      {
+        "command": "copyPathLowerSnakeCase",
+        "title": "=> lower_snake_case"
+      },
+      {
+        "command": "copyPathUpperSnakeCase",
+        "title": "=> UPPER_SNAKE_CASE"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "group": "navigation",
+          "when": "editorHasSelection && (resourceLangId == 'yaml' || resourceLangId == 'yml' || resourceLangId == 'json')",
+          "group": "navigation@1",
+          "submenu": "copyPathMenu"
+        },
+        {
+          "group": "navigation@2",
           "submenu": "root"
+        }
+      ],
+      "copyPathMenu": [
+        {
+          "group": "copyPath@1",
+          "command": "copyPathJsonPath"
         },
         {
-          "when": "editorHasSelection && (resourceLangId == 'yaml' || resourceLangId == 'yml')",
-          "group": "navigation",
-          "command": "copyYamlPath"
+          "group": "copyPath@2",
+          "command": "copyPathLowerCase"
         },
         {
-          "when": "editorHasSelection && (resourceLangId == 'yaml' || resourceLangId == 'yml')",
-          "group": "navigation",
-          "command": "copyYamlJson"
+          "group": "copyPath@3",
+          "command": "copyPathUpperCase"
+        },
+        {
+          "group": "copyPath@4",
+          "command": "copyPathLowerKebabCase"
+        },
+        {
+          "group": "copyPath@5",
+          "command": "copyPathUpperKebabCase"
+        },
+        {
+          "group": "copyPath@6",
+          "command": "copyPathLowerCamelCase"
+        },
+        {
+          "group": "copyPath@7",
+          "command": "copyPathUpperCamelCase"
+        },
+        {
+          "group": "copyPath@8",
+          "command": "copyPathLowerSnakeCase"
+        },
+        {
+          "group": "copyPath@9",
+          "command": "copyPathUpperSnakeCase"
         }
       ],
       "root": [
@@ -112,6 +191,10 @@
       {
         "id": "root",
         "label": "Rename"
+      },
+      {
+        "id": "copyPathMenu",
+        "label": "CopyPath"
       }
     ],
     "keybindings": [

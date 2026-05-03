@@ -47,8 +47,17 @@ const events = {
   upperKebabCase: utils.convertToUpperKebabCase,
   lowerCase: (t) => Promise.resolve(t.toLowerCase()),
   upperCase: (t) => Promise.resolve(t.toUpperCase()),
-  copyYamlPath: utils.copyYamlPath,
-  copyYamlJson: utils.copyYamlJson,
+};
+const copyEvents = {
+  copyPathJsonPath: utils.copyPathJsonPath,
+  copyPathLowerCase: utils.copyPathLowerCase,
+  copyPathUpperCase: utils.copyPathUpperCase,
+  copyPathLowerKebabCase: utils.copyPathLowerKebabCase,
+  copyPathUpperKebabCase: utils.copyPathUpperKebabCase,
+  copyPathLowerCamelCase: utils.copyPathLowerCamelCase,
+  copyPathUpperCamelCase: utils.copyPathUpperCamelCase,
+  copyPathLowerSnakeCase: utils.copyPathLowerSnakeCase,
+  copyPathUpperSnakeCase: utils.copyPathUpperSnakeCase,
 };
 /**
  * @param {vscode.ExtensionContext} context
@@ -58,6 +67,10 @@ function activate(context) {
     const disposable = vscode.commands.registerCommand(event, () =>
       run(events[event])
     );
+    context.subscriptions.push(disposable);
+  }
+  for (const event in copyEvents) {
+    const disposable = vscode.commands.registerCommand(event, copyEvents[event]);
     context.subscriptions.push(disposable);
   }
 }
